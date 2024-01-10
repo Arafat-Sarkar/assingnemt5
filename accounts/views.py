@@ -25,6 +25,11 @@ class UserLoginView(LoginView):
 
 
 
-class UserLogoutView(LogoutView):
-    def get_success_url(self):
-        return reverse_lazy('home')
+# class UserLogoutView(LogoutView):
+#     def get_success_url(self):
+#         return reverse_lazy('home')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
