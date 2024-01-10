@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ['https://library-management-system-1vm0.onrender.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://assignment-5-l19o.onrender.com','https://*.127.0.0.1']
 
 
 # Application definition
