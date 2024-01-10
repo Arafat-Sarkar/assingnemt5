@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block head_title %}{{ title }}{% endblock %} 
+
+{% block content %}
+<div class="container text-center"> <h1> <b>{{user.first_name}} {{user.last_name}}</b></h1> <hr>
+
+{% if data %}
+<div class= "container mt-5">
+    <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Balance After Borrow</th>
+            <th scope="col">Date</th>
+            <th scope="col">Return Book</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+          <tr>
+            <td>{{i.id}}</td>
+            <td>{{i.book.title }} </td>
+            <td>{{i.book.borrow_price}}</td>
+            <td>{{i.balance_after_borrow}}</td>
+            <td>{{ i.timestamp|date:"F d, Y " }}</td>
+            {% if i.returned %}
+                <td><button class="btn btn-success mt-1" disabled>Return done</button></td>
+            {% else %}
+                <td>
+                    <a href="{% url 'returned' i.id %}" class="btn btn-warning mt-1">Return?</a>
+                </td>
+            {% endif %}
+          </tr>
+        {% endfor %}  
+        </tbody>
+      </table>
+</div>
+{% endif %}
+{% endblock %}

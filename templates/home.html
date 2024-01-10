@@ -1,0 +1,66 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block head_title %}Home{% endblock %} 
+
+{% block content %}
+{% if not request.user.is_authenticated %}
+<div class = 'container row p-5 m-3 me-3' >
+
+  <div class = 'col-6 ' >
+  <p> Library management systems streamline resource organization, save time for staff by automating routine tasks, enhance accessibility through online catalogs, maintain accurate records of circulation, overdue fines, and membership details, enhance user engagement through notifications, and provide data security by securely storing sensitive patron and library data compared to traditional paper-based record-keeping. This results in a better library experience for users.</p>
+  </div>
+  <div class = 'col-6' >
+    
+    <div class="container text-center"> <h1> <b>Library Management</b></h1>
+        <br>
+        <img style='width:60%;' src="{% static 'library.png' %}" alt="pic">
+        
+    </div>
+  
+
+  </div>
+</div>
+{% endif %}
+
+
+
+
+{% if request.user.is_authenticated %}
+
+<div class="container  m-3">
+    <h3>Category:</h3>
+    <div class="row d-flex justify-content-between align-items-center text-center">
+        {% for cat in category %}
+        <div class="col">
+            <a href="{% url 'category_wise_post' cat.slug %}" class="text-decoration-none text-dark btn btn-primary" >{{cat.categoryName}}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr> 
+
+<div class=" d-flex flex-wrap justify-content-center px-5 pt-5 ">
+  <h3> Total Book:  {{book | length}}</h3>
+    {% for data in book %}
+        <div class="col-sm-3 ">
+          <div class="card mx-3">
+            <div class="card-body">
+                <img src="{{data.image.url}}" class="card-img-top w-75" alt="...">
+              <h4 class="card-title"> Title: {{data.title}}</h4>
+              <p class="card-text"> Price: {{data.borrow_price}}</p>
+              <p class="card-text"><strong>Description:  </strong>{{data.description |truncatewords:10}}</p>
+             
+              <a href="{% url 'detail_book' data.id %}" class="btn btn-primary mt-1"><b> Details</b></a>
+            </div>
+          </div>
+        </div>
+       
+      
+    
+    {% endfor %}
+</div>
+</div> 
+
+
+{% endif %}
+{% endblock %}
